@@ -1,0 +1,16 @@
+{
+  "name": "irreg.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dimitri Ivashchuk",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-rename": "^1.2.2"
+  }
+}
