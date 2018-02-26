@@ -28,6 +28,27 @@ function construct(array) {
     presentPerfect.setAttribute("placeholder", array[counter].presentPerfect);
   }
 }
+function prepareVerbs(array) {
+  shuffleArray(array);
+  construct(array);
+}
+function hintHandler() {
+  if (hintCounter === 0) {
+    pastTense.value = "";
+    pastTense.setAttribute("placeholder", verbs[counter].pastTense);
+    hintCounter = 1;
+  } else if (hintCounter === 1) {
+    presentPerfect.value = "";
+    presentPerfect.setAttribute("placeholder", verbs[counter].presentPerfect);
+    hintCounter = 0;
+  }
+  console.log(hintCounter);
+}
+function isolatedHintHandler(event) {
+  if (event.altKey && event.shiftKey) {
+    hintHandler();
+  }
+}
 
 window.onload = () => {
   counter = 0;
@@ -36,74 +57,76 @@ window.onload = () => {
   presentPerfect.value = "";
 };
 
-var request = new XMLHttpRequest();
-request.open(
-  "GET",
-  `https://raw.githubusercontent.com/d-ivashchuk/misc/master/verbs${language}.json`,
-  false
-);
-request.onload = () => {
-  verbs = JSON.parse(request.responseText);
-  const easyVerbs = verbs.filter(item => {
-    return item.frequency == "frequent";
-  });
-  const hardVerbs = verbs.filter(item => {
-    return item.frequency === "infrequent";
-  });
-  shuffleArray(verbs);
-  construct(verbs);
+function build(lang) {
+  var request = new XMLHttpRequest();
 
-  pastTense.addEventListener("input", function() {
-    if (pastTense.value.toLowerCase() === verbs[counter].pastTense) {
-      presentPerfect.focus();
-      hintCounter = 1;
-    }
-  });
+  request.open(
+    "GET",
+    `https://raw.githubusercontent.com/d-ivashchuk/misc/master/verbs${lang}.json`,
+    false
+  );
 
-  presentPerfect.addEventListener("input", () => {
-    if (presentPerfect.value.toLowerCase() === verbs[counter].presentPerfect) {
-      pastTense.value = "";
-      presentPerfect.value = "";
-      pastTense.removeAttribute("placeholder");
-      presentPerfect.removeAttribute("placeholder");
-      pastTense.focus();
-      counter += 1;
-      hintCounter = 0;
-      construct(verbs);
-    }
-  });
-  function hintHandler() {
-    if (hintCounter === 0) {
-      pastTense.value = "";
-      pastTense.setAttribute("placeholder", verbs[counter].pastTense);
-      hintCounter = 1;
-    } else {
-      presentPerfect.value = "";
-      presentPerfect.setAttribute("placeholder", verbs[counter].presentPerfect);
-      hintCounter = 0;
-    }
-  }
-
-  hint.addEventListener("click", hintHandler);
-  document.addEventListener("keydown", event => {
-    if (event.altKey && event.shiftKey) {
-      hintHandler();
-    }
-  });
-  easy.addEventListener("click", item => {
-    verbs = easyVerbs;
-    construct(verbs);
-  });
-  hard.addEventListener("click", item => {
-    verbs = hardVerbs;
-    construct(verbs);
-  });
-  allVerbs.addEventListener("click", item => {
+  request.onload = function() {
     verbs = JSON.parse(request.responseText);
+
+    shuffleArray(verbs);
+
+    const easyVerbs = verbs.filter(item => {
+      return item.frequency == "frequent";
+    });
+    const hardVerbs = verbs.filter(item => {
+      return item.frequency === "infrequent";
+    });
+
     construct(verbs);
-  });
-  en.addEventListener("click", () => {
-    language = "En";
-  });
-};
-request.send();
+
+    pastTense.addEventListener("input", function() {
+      if (pastTense.value.toLowerCase() === verbs[counter].pastTense) {
+        presentPerfect.focus();
+        hintCounter = 1;
+      }
+    });
+
+    presentPerfect.addEventListener("input", function() {
+      if (
+        presentPerfect.value.toLowerCase() === verbs[counter].presentPerfect
+      ) {
+        pastTense.value = "";
+        presentPerfect.value = "";
+        pastTense.removeAttribute("placeholder");
+        presentPerfect.removeAttribute("placeholder");
+        pastTense.focus();
+        counter += 1;
+        hintCounter = 0;
+        construct(verbs);
+      }
+    });
+    console.log(verbs);
+    hint.addEventListener("click", hintHandler);
+    document.addEventListener("keydown", isolatedHintHandler);
+    easy.addEventListener("click", item => {
+      verbs = easyVerbs;
+      prepareVerbs(verbs);
+    });
+    hard.addEventListener("click", item => {
+      verbs = hardVerbs;
+      prepareVerbs(verbs);
+    });
+    allVerbs.addEventListener("click", item => {
+      verbs = JSON.parse(request.responseText);
+      prepareVerbs(verbs);
+    });
+  };
+  request.send();
+}
+
+build("De");
+
+en.addEventListener("click", test => {
+  counter = 0;
+  build("En");
+});
+de.addEventListener("click", test => {
+  counter = 0;
+  build("De");
+});

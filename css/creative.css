@@ -9,16 +9,19 @@ body {
   background-color: #3b2973;
   color: #f2f1e8;
 }
+button {
+  font-size: 2rem;
+}
 
 .header {
   text-align: center;
   margin-top: 22px;
-  font-size: 40px;
+  font-size: 8.5rem;
 }
 .subheading {
   margin-top: 11px;
   color: #31c8e6;
-  font-size: 20px;
+  font-size: 3rem;
 }
 .main {
   text-align: center;
@@ -26,10 +29,12 @@ body {
 .infinitive {
   font-size: 22px;
   margin-top: 15px;
+  font-size: 4rem;
 }
 .translation {
-  margin-top: 5px;
+  margin-top: 20px;
   opacity: 0.4;
+  font-size: 2rem;
 }
 .inputs {
   margin-top: 11px;
@@ -43,6 +48,7 @@ body {
   border-radius: 11px;
   text-align: center;
   border: none;
+  font-size: 1.5rem;
 }
 .input:focus {
   outline: none;
@@ -50,6 +56,7 @@ body {
 .hint > button {
   border: none;
   padding: 10px;
+  margin-top: 20px;
   border-radius: 100px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -65,11 +72,18 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
 }
 .difficulty > button {
+  margin: 20px;
   padding: 5px;
   border: none;
   border-radius: 10px;
+  background: white;
   color: #3b2973;
 }
-.language {
-  display: none;
+.language > button {
+  margin-top: 20px;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: #3b2973;
 }
