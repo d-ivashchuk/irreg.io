@@ -8,12 +8,22 @@
   <title>Irreg.io| Train your verbs</title>
 </head>
 <body>
+
+  <ul id="menu" style="margin-top=100px">
+    <li data-menuanchor="title" class="active"><a href="#title">Home</a></li>
+    <li data-menuanchor="settings"><a href="#settings">Set</a></li>
+    <li data-menuanchor="trainer"><a href="#trainer">Train</a></li>
+
+  </ul>
   <div id="fullpage">
-  <div class="section"><div class="header">
-    i<span class="mirrored">r</span>reg.io
-    <div class="subheading">Your personal irregular verbs trainer</div>
-    <div class="info--container"><div class="info">Irregio is a perfect companion for language learners, who want to practice irregular verbs conjugation and learn their translation.</div></div>
-  </div></div>
+  <div class="section">
+    <div class="header">
+      i<span class="mirrored">r</span>reg.io
+      <div class="subheading">Your personal irregular verbs trainer</div>
+      <div class="info--container"><div class="info">Irregio is a perfect companion for language learners, who want to practice irregular verbs conjugation and learn their translation.</div></div>
+      <div class="scroll-down"></div>
+  </div>
+</div>
   <div class="section">
     <div class="main">
      <div class="language">
@@ -34,15 +44,16 @@
         <div class="infinitive"> - </div>
         <div class="translation"> -  </div>
         <ul class="inputs">
-          <input class="pastTense input" name="down" type="text" placeholder="ging">
-          <input class="presentPerfect input" name='down' type="text" placeholder="gegangen">
+          <input class="pastTense input" name="down" type="text" placeholder="ging" autocapitalize='off'>
+          <input class="presentPerfect input" name='down' type="text" placeholder="gegangen" autocapitalize='off'>
         </ul>
         <div class="hint"><button>help</button></div>
+        <div class="hint--help">press<br>Shift+Alt</div>
       </div>
   </div>
-
+</div>
   <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
-  <script type="text/javascript" src="./js/jquery.fullpage.min.js"></script>
-  <script src="./js/index.js"></script>
+  <script type="text/javascript" src="/js/jquery.fullPage.min.js"></script>
+  <script src="/js/index.js"></script>
 </body>
 </html>
