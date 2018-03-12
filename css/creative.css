@@ -6,7 +6,6 @@
   font-family: "Open Sans", sans-serif;
 }
 body {
-  background: rgb(23, 166, 249);
   color: rgb(240, 240, 240);
 }
 .header {
@@ -41,17 +40,16 @@ body {
   text-align: center;
 }
 .language {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .language__label {
   margin-top: 11px;
   font-size: 4vh;
   margin-bottom: 11px;
   text-align: center;
-  color: white;
+  color: #666666;
 }
 .language > button {
-  margin-top: 20px;
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -64,7 +62,7 @@ body {
   font-size: 4vh;
   border-bottom: 11px;
   text-align: center;
-  color: white;
+  color: #666666;
 }
 .difficulty > button {
   padding: 5px;
@@ -75,8 +73,14 @@ body {
   cursor: pointer;
 }
 .icon {
-  width: 15vh;
-  height: 15vh;
+  width: 10vh;
+  height: 10vh;
+}
+@media (max-width: 380px) {
+  .icon {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 .infinitive {

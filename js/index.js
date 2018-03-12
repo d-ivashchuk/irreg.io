@@ -8,19 +8,16 @@ const hint = document.querySelector(".hint");
 const easy = document.querySelector(".easy");
 const hard = document.querySelector(".hard");
 const allVerbs = document.querySelector(".all");
+const translateRus = document.querySelector(".translationRus");
+const translateEn = document.querySelector(".translationEn");
 let language = "De";
+let translationLang = "translationEn";
 let counter = 0;
 let hintCounter = 0;
 let array = [];
 $(document).ready(function() {
   $("#fullpage").fullpage({
-    sectionsColor: [
-      "#ED605E",
-      "rgba(46,204,113 ,1)",
-      "#00AEFE",
-      "whitesmoke",
-      "#ccddff"
-    ],
+    sectionsColor: ["#ED605E", "#FAFAFA", "#00AEFE", "whitesmoke", "#ccddff"],
     anchors: ["title", "settings", "trainer"],
     menu: "#menu",
     scrollingSpeed: 1000
@@ -35,7 +32,7 @@ function shuffleArray(array) {
 
 function construct(array) {
   infinitive.innerHTML = array[counter].infinitive;
-  translation.innerHTML = array[counter].translation;
+  translation.innerHTML = array[counter][translationLang];
   if (counter == 0) {
     pastTense.setAttribute("placeholder", array[counter].pastTense);
     presentPerfect.setAttribute("placeholder", array[counter].presentPerfect);
@@ -55,7 +52,6 @@ function hintHandler() {
     presentPerfect.setAttribute("placeholder", verbs[counter].presentPerfect);
     hintCounter = 0;
   }
-  console.log(hintCounter);
 }
 function isolatedHintHandler(event) {
   if (event.altKey && event.shiftKey) {
@@ -116,9 +112,11 @@ function build(lang) {
         construct(verbs);
       }
     });
-    console.log(verbs);
+
     hint.addEventListener("click", hintHandler);
+
     document.addEventListener("keydown", isolatedHintHandler);
+
     easy.addEventListener("click", item => {
       verbs = easyVerbs;
       prepareVerbs(verbs);
@@ -145,13 +143,29 @@ build("De");
 
 en.addEventListener("click", lang => {
   counter = 0;
-  build("En");
+  language = "En";
+  build(language);
   de.classList.add("inactive");
   en.classList.remove("inactive");
 });
 de.addEventListener("click", lang => {
   counter = 0;
-  build("De");
+  language = "De";
+  build(language);
   en.classList.add("inactive");
   de.classList.remove("inactive");
+});
+translateRus.addEventListener("click", lang => {
+  counter = 0;
+  translationLang = "translationRus";
+  build(language);
+  translateEn.classList.add("inactive");
+  translateRus.classList.remove("inactive");
+});
+translateEn.addEventListener("click", lang => {
+  counter = 0;
+  translationLang = "translationEn";
+  build(language);
+  translateRus.classList.add("inactive");
+  translateEn.classList.remove("inactive");
 });
