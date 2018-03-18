@@ -42,6 +42,12 @@ body {
 .language {
   margin-bottom: 30px;
 }
+.wrapper {
+  border: solid 2px #666666;
+  border-radius: 35px;
+  margin: 15px 25% 0 25%;
+  background-color: whitesmoke;
+}
 .language__label {
   margin-top: 11px;
   font-size: 4vh;
@@ -76,19 +82,12 @@ body {
   width: 10vh;
   height: 10vh;
 }
-@media (max-width: 380px) {
-  .icon {
-    width: 80px;
-    height: 80px;
-  }
-}
 
 .infinitive {
   margin-top: 90px;
   font-size: 4rem;
 }
 .translation {
-  margin-top: 2px;
   margin-bottom: 10px;
   opacity: 0.4;
   font-size: 2rem;
@@ -122,7 +121,25 @@ body {
   width: 140px;
 }
 
-.hint > button:hover {
+.redo:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  background-color: white;
+  color: rgba(0, 174, 254, 0.6);
+}
+.redo {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  margin: 20px 0 20px 0;
+  border-radius: 100px;
+  font-size: 3.3vh;
+  border: 1px solid white;
+  color: white;
+  width: 140px;
+}
+
+.redo > button:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   cursor: pointer;
   background-color: white;
@@ -131,15 +148,20 @@ body {
 .hint--help {
   display: none;
 }
-/* @media (min-width: 1200px) {
-  .hint--help {
-    margin-top: 0;
-    display: block;
-    color: #666666;
-    opacity: 0.5;
-    font-size: 1.5vh;
-  }
-} */
+.progress-bar__large {
+  position: relative;
+  top: -20px;
+  margin: auto;
+  width: 80%;
+  height: 5px;
+  background-color: white;
+}
+.progress {
+  opacity: 0.7;
+  width: 0;
+  height: 5px;
+  background-color: #76ff03;
+}
 
 .inactive {
   filter: grayscale(0.6);
@@ -150,6 +172,47 @@ body {
 }
 .hidden {
   display: none;
+}
+.congrats {
+  display: none;
+}
+.congrats--big {
+  font-size: 3vh;
+  padding: 10px;
+}
+.message {
+  font-size: 1.8vh;
+}
+.hintsTaken {
+  font-size: 4vh;
+}
+
+@media (max-width: 630px) {
+  .icon {
+    width: 80px;
+    height: 80px;
+  }
+  .wrapper {
+    margin: 13px 10% 0 10%;
+  }
+  .progress-bar__large {
+    display: none;
+  }
+  .progress-bar__small {
+    margin: auto;
+    background-color: white;
+    height: 4px;
+    width: 80%;
+  }
+  .progress__small {
+    opacity: 0.7;
+    width: 0;
+    height: 4px;
+    background-color: #76ff03;
+  }
+  .translation {
+    display: none;
+  }
 }
 
 .fp-enabled body,

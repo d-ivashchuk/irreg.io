@@ -26,39 +26,61 @@
 </div>
   <div class="section">
     <div class="main">
-     <div class="language speak">
-        <div class="language__label">I know</div>
-        <button class="translationEn" type="button" name="button"><img class="icon icon__en" src="img/en.svg" alt=""></button>
-        <button class="translationRus inactive" type="button" name="button"><img class="icon icon__de" src="img/rus.svg" alt=""></button>
+      <div class="wrapper">
+        <div class="language speak">
+           <div class="language__label">I know</div>
+           <button class="translationEn" type="button" name="button"><img class="icon icon__en" src="img/en.svg" alt=""></button>
+           <button class="translationRus inactive" type="button" name="button"><img class="icon icon__de" src="img/rus.svg" alt=""></button>
+         </div>
+         <div class="language learn">
+            <div class="language__label">I learn</div>
+            <button class="de" type="button" name="button"><img class="icon icon__de" src="img/de.svg" alt=""></button>
+            <button class="en inactive" type="button" name="button"><img class="icon icon__en" src="img/en.svg" alt=""></button>
+          </div>
       </div>
-      <div class="language learn">
-         <div class="language__label">I learn</div>
-         <button class="de" type="button" name="button"><img class="icon icon__de" src="img/de.svg" alt=""></button>
-         <button class="en inactive" type="button" name="button"><img class="icon icon__en" src="img/en.svg" alt=""></button>
-       </div>
-      <div class="difficulty">
-        <div class="difficulty__label">Difficulty</div>
-        <button class="easy" type="button" name="button"><img class="icon icon__easy" src="img/star.svg" alt=""></button>
-        <button class="hard inactive" type="button" name="button"><img class="icon icon__normal" src="img/star.svg" alt=""></button>
-        <button class="all inactive" type="button" name="button"><img class="icon icon__hard" src="img/star.svg" alt=""></button>
+      <div class="wrapper">
+        <div class="difficulty">
+          <div class="difficulty__label">Difficulty</div>
+          <button class="easy" type="button" name="button"><img class="icon icon__easy" src="img/star.svg" alt=""></button>
+          <button class="hard inactive" type="button" name="button"><img class="icon icon__normal" src="img/star.svg" alt=""></button>
+          <button class="all inactive" type="button" name="button"><img class="icon icon__hard" src="img/star.svg" alt=""></button>
+        </div>
       </div>
+
+
     </div>
   </div>
   <div class="section">
-      <div class="main">
-        <div class="infinitive"> - </div>
+    <div class="progress-bar__large">
+      <div class="progress"></div>
+    </div>
+      <div class="main test">
+        <div class="congrats">
+          <div class="message">Congraulations!<br> You have done well and used <br><span class="hintsTaken"></span><br> hints
+          </div>
+          <div class="hintsTaken"></div>
+          <button class="redo" name="button">Redo</button>
+        </div>
+        <div class="trainer">
+          <div class="infinitive"> - </div>
+
         <div class="translation"> -  </div>
         <ul class="inputs">
           <input class="pastTense input" name="down" type="text" placeholder="ging" autocapitalize='off'>
+          <div class="progress-bar__small">
+            <div class="progress__small"></div>
+          </div>
           <input class="presentPerfect input" name='down' type="text" placeholder="gegangen" autocapitalize='off'>
         </ul>
         <div class="hint"><button>help</button></div>
-        <div class="hint--help">press<br>Shift+Alt</div>
+        <div class="hint--help">press<br>Shift+Alt</div></div>
+
       </div>
   </div>
 </div>
   <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
   <script type="text/javascript" src="./js/jquery.fullpage.min.js"></script>
+
   <script src="./js/index.js"></script>
 </body>
 </html>

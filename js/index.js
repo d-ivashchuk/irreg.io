@@ -10,19 +10,27 @@ const hard = document.querySelector(".hard");
 const allVerbs = document.querySelector(".all");
 const translateRus = document.querySelector(".translationRus");
 const translateEn = document.querySelector(".translationEn");
+const hintsLabel = document.querySelector(".hintsTaken");
+const redo = document.querySelector(".redo");
+const progressBar = $(".progress");
+const progressBarSmall = $(".progress__small");
 let language = "De";
 let translationLang = "translationEn";
 let counter = 0;
 let hintCounter = 0;
 let array = [];
+let currentProgress = 0;
+let hintsTaken = 0;
+
 $(document).ready(function() {
   $("#fullpage").fullpage({
-    sectionsColor: ["#ED605E", "#FAFAFA", "#00AEFE", "whitesmoke", "#ccddff"],
+    sectionsColor: ["#ED605E", "#FFEE58", "#00AEFE", "whitesmoke", "#ccddff"],
     anchors: ["title", "settings", "trainer"],
     menu: "#menu",
     scrollingSpeed: 1000
   });
 });
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -43,6 +51,7 @@ function prepareVerbs(array) {
   construct(array);
 }
 function hintHandler() {
+  hintsTaken += 1;
   if (hintCounter === 0) {
     pastTense.value = "";
     pastTense.setAttribute("placeholder", verbs[counter].pastTense);
@@ -57,6 +66,25 @@ function isolatedHintHandler(event) {
   if (event.altKey && event.shiftKey) {
     hintHandler();
   }
+}
+function progress() {
+  step = 100 / verbs.length;
+  if (currentProgress === 0) {
+    currentProgress += step;
+  } else if (currentProgress > 100) {
+    currentProgress = 100;
+  }
+  progressBar.animate({ width: `${currentProgress}%` });
+  progressBarSmall.animate({ width: `${currentProgress}%` });
+  currentProgress += step;
+}
+function resetProgress() {
+  pastTense.value = "";
+  presentPerfect.value = "";
+  counter = 0;
+  hintsTaken = 0;
+  currentProgress = 0;
+  progressBar.animate({ width: `${currentProgress}%` });
 }
 
 window.onload = () => {
@@ -87,13 +115,15 @@ function build(lang) {
       return item.frequency === "infrequent";
     });
 
+    verbs = easyVerbs;
+
     construct(verbs);
 
     pastTense.addEventListener("input", function() {
       if (pastTense.value.toLowerCase() === verbs[counter].pastTense) {
-        presentPerfect.focus();
+        presentPerfect.select();
         hintCounter = 1;
-        translation.classList.add("hidden");
+        // translation.classList.add("hidden");
       }
     });
 
@@ -101,15 +131,27 @@ function build(lang) {
       if (
         presentPerfect.value.toLowerCase() === verbs[counter].presentPerfect
       ) {
-        pastTense.value = "";
-        presentPerfect.value = "";
-        pastTense.removeAttribute("placeholder");
-        presentPerfect.removeAttribute("placeholder");
-        translation.classList.remove("hidden");
-        pastTense.focus();
-        counter += 1;
-        hintCounter = 0;
-        construct(verbs);
+        if (counter != verbs.length - 1) {
+          pastTense.value = "";
+          presentPerfect.value = "";
+          pastTense.removeAttribute("placeholder");
+          presentPerfect.removeAttribute("placeholder");
+          translation.classList.remove("hidden");
+          pastTense.select();
+          counter += 1;
+          hintCounter = 0;
+          construct(verbs);
+          progress();
+        } else {
+          progress();
+          hintsLabel.innerHTML = hintsTaken;
+          $(".trainer")
+            .fadeOut(1000)
+            .promise()
+            .done(function() {
+              $(".congrats").fadeIn(1000);
+            });
+        }
       }
     });
 
@@ -122,18 +164,21 @@ function build(lang) {
       prepareVerbs(verbs);
       hard.classList.add("inactive");
       allVerbs.classList.add("inactive");
+      resetProgress();
     });
     hard.addEventListener("click", item => {
       verbs = hardVerbs;
       prepareVerbs(verbs);
       hard.classList.remove("inactive");
       allVerbs.classList.add("inactive");
+      resetProgress();
     });
     allVerbs.addEventListener("click", item => {
       verbs = JSON.parse(request.responseText);
       prepareVerbs(verbs);
       hard.classList.remove("inactive");
       allVerbs.classList.remove("inactive");
+      resetProgress();
     });
   };
   request.send();
@@ -147,6 +192,7 @@ en.addEventListener("click", lang => {
   build(language);
   de.classList.add("inactive");
   en.classList.remove("inactive");
+  resetProgress();
 });
 de.addEventListener("click", lang => {
   counter = 0;
@@ -154,6 +200,7 @@ de.addEventListener("click", lang => {
   build(language);
   en.classList.add("inactive");
   de.classList.remove("inactive");
+  resetProgress();
 });
 translateRus.addEventListener("click", lang => {
   counter = 0;
@@ -161,6 +208,7 @@ translateRus.addEventListener("click", lang => {
   build(language);
   translateEn.classList.add("inactive");
   translateRus.classList.remove("inactive");
+  resetProgress();
 });
 translateEn.addEventListener("click", lang => {
   counter = 0;
@@ -168,4 +216,16 @@ translateEn.addEventListener("click", lang => {
   build(language);
   translateRus.classList.add("inactive");
   translateEn.classList.remove("inactive");
+  resetProgress();
+});
+
+redo.addEventListener("click", fun => {
+  resetProgress();
+  build("De");
+  $(".congrats")
+    .fadeOut(1000)
+    .promise()
+    .done(function() {
+      $(".trainer").fadeIn(1000);
+    });
 });
